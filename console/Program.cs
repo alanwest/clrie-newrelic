@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
-using NewRelic.Api.Agent;
 
 namespace console
 {
@@ -26,27 +24,6 @@ namespace console
                 var result = method.Invoke(obj, new string[] { "Some string" });
                 //Console.WriteLine(result);
             }
-        }
-
-        static void AlanStuff()
-        {
-            var stuff = new Dictionary<string, object>() {
-                { "alan", "west" },
-                { "allan", "feldman" }
-            };
-
-            for (var i = 0; i < 10; ++i)
-            {
-                NewRelic.Api.Agent.NewRelic.NoticeError("Bummer.", stuff);
-                NewRelic.Api.Agent.NewRelic.RecordCustomEvent("AlanCouncilEvent", stuff);
-                BeepBoop();
-            }
-        }
-
-        [Transaction]
-        static void BeepBoop()
-        {
-            System.Threading.Thread.Sleep(10);
         }
     }
 }
