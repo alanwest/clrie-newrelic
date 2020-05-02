@@ -435,3 +435,4 @@ $RECYCLE.BIN/
 GeneratedAssemblies
 log.txt
 !newrelic/**
+newrelic/logs
