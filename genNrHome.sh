@@ -5,10 +5,20 @@
 rm -rf newrelic
 cp -r "$NEWRELIC_HOME" newrelic
 mkdir newrelic/x86
-cp "$NEWRELIC_HOME/../_profilerBuild/x64-Debug/NewRelic.Profiler.dll" newrelic
-cp "$NEWRELIC_HOME/../_profilerBuild/x86-Debug/NewRelic.Profiler.dll" newrelic/x86
-cp "$NEWRELIC_HOME/../_profilerBuild/x64-Debug/NewRelic.Profiler.pdb" newrelic
-cp "$NEWRELIC_HOME/../_profilerBuild/x86-Debug/NewRelic.Profiler.pdb" newrelic/x86
-rm newrelic/Extensions/NewRelic.Core.Instrumentation.xml
-rm newrelic/Extensions/NewRelic.Parsing.Instrumentation.xml
+if [ -d "$NEWRELIC_HOME/../_profilerBuild/x64-Debug" ]
+then
+    configuration="Debug"
+else
+    configuration="Release"
+fi
+
+cp "$NEWRELIC_HOME/../_profilerBuild/x64-$configuration/NewRelic.Profiler.dll" newrelic
+cp "$NEWRELIC_HOME/../_profilerBuild/x86-$configuration/NewRelic.Profiler.dll" newrelic/x86
+
+if [ "$configuration" == "Debug" ]
+then
+    cp "$NEWRELIC_HOME/../_profilerBuild/x64-$configuration/NewRelic.Profiler.pdb" newrelic
+    cp "$NEWRELIC_HOME/../_profilerBuild/x86-$configuration/NewRelic.Profiler.pdb" newrelic/x86
+fi
+
 mkdir newrelic/logs
